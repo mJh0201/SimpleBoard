@@ -4,11 +4,13 @@ package board.DTO;
 import java.sql.Date;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter@Setter@ToString
@@ -26,7 +28,7 @@ public class BoardDTO {
 /*
  *  BOARD_ID NUMBER NOT NULL,
     BOARD_TITLE VARCHAR2(50) NOT NULL,
-    BOARD_CONTENTS VARCHAR2(100) NOT NULL,
+    BOARD_CONTENT VARCHAR2(100) NOT NULL,
     BOARD_DATE DATE DEFAULT SYSDATE NOT NULL,
     USER_NAME VARCHAR2(20)NOT NULL,
     USER_PW VARCHAR2(20) NOT NULL,

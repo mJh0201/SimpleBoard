@@ -24,7 +24,11 @@ public class BoardController {
 
 			switch (job) {
 			case 1 -> {
-				contentCreate();
+				BoardDTO dto = contentCreate();
+				
+				if(dto != null) {
+					BoardView.list(boardService.selectAll());
+				}
 			}
 			case 2 -> { // 글보기
 				BoardView.input("글번호입력(뒤로가기:0)>> ");

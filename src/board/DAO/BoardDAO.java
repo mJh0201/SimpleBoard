@@ -1,8 +1,5 @@
 package board.DAO;
 
-import java.io.File;
-import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -105,7 +102,7 @@ public class BoardDAO {
 		Statement st = null;
 		ResultSet rs = null;
 
-		String sql = "select * from board";
+		String sql = "select * from board order by BOARD_ID";
 
 		try {
 			conn = DBUtil.dbConnect();

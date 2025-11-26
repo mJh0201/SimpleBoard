@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 import board.DAO.BoardDAO;
+import java.util.List;
+
 import board.DTO.BoardDTO;
 import board.Service.BoardService;
 import board.View.BoardView;
@@ -14,6 +16,33 @@ public class BoardController {
 	static BoardService boardService = new BoardService();
 	
 	public static void main(String[] args) {
+    List<BoardDTO> dtoList = service.selectAll();
+
+		BoardView.list(dtoList);
+
+		boolean isStop = false;
+
+		while (!isStop) {
+			BoardView.print("1.글쓰기 | 2.글보기 | 99.종료");
+			BoardView.input("번호입력>>");
+			int job = Integer.parseInt(sc.nextLine());
+
+			switch (job) {
+			case 1 -> {
+			}
+			case 2 -> { //글보기
+				BoardView.input("글번호입력(뒤로가기:0)>> ");
+				int board_id = Integer.parseInt(sc.nextLine());
+				BoardView.print(service.selectOne(board_id));
+			}
+			case 99 -> {
+				isStop = true;
+			}
+			default -> {
+				BoardView.print("다시입력하세요.");
+			}
+			}
+		}
 		BoardDTO boardDTO = new BoardDTO();
 		
 		contentCreate();
@@ -23,13 +52,13 @@ public class BoardController {
 	private static BoardDTO contentCreate() {	
 		BoardDTO boardDTO = new BoardDTO();
 		
-		BoardView.insertRequest("제목 : ");
+		BoardView.input("제목 : ");
 		String title = sc.nextLine();
-		BoardView.insertRequest("작성자 : ");
+		BoardView.input("작성자 : ");
 		String user_name = sc.nextLine();
-		BoardView.insertRequest("내용 : ");
+		BoardView.input("내용 : ");
 		String content = sc.nextLine();
-		BoardView.insertRequest("비밀번호 : ");
+		BoardView.input("비밀번호 : ");
 		String user_pw = sc.nextLine();
 		
 		boardDTO.setBoard_title(title);
@@ -39,8 +68,6 @@ public class BoardController {
 		
 		String message = boardService.boardCreate(boardDTO);
 		System.out.println("[확인용] " + message);
-
 		return boardDTO;
 	}
-	
 }

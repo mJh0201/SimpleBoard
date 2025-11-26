@@ -29,7 +29,30 @@ public class BoardController {
 			case 2 -> { // 글보기
 				BoardView.input("글번호입력(뒤로가기:0)>> ");
 				int board_id = Integer.parseInt(sc.nextLine());
-				BoardView.print(boardService.selectOne(board_id));
+
+				exit:while (true) {
+					BoardView.print(boardService.selectOne(board_id)); // 상세 글 조회
+					System.out.println("1. 글 수정하기  |  2. 글 삭제하기  | 3. 뒤로가기");
+					int select = Integer.parseInt(sc.nextLine());
+					
+					switch (select) {
+						case 1 -> {
+							// 글 수정
+							System.out.println("제목 수정>> ");
+							String title = sc.nextLine();
+							System.out.println("내용 수정>> ");
+							String content = sc.nextLine();
+	
+							System.out.println(boardService.update(board_id, title, content));
+						} 
+						case 2 -> {
+							// TODO: 글 삭제 기능 필요
+						} 
+						case 3 -> {break exit;}
+						default -> {System.out.println("다시 입력하세요.");}
+					}
+				}
+				
 			}
 			case 99 -> {
 				isStop = true;

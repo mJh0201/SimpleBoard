@@ -13,5 +13,10 @@ public class BoardService {
 	public List<BoardDTO> selectAll() {
 		return boardDAO.selectAll();
 	}
+	
+	//상세 게시글 조회
+	public BoardDTO selectOne(int board_id) {
+		return boardDAO.selectOne(board_id);
+	}
 
 }

@@ -17,6 +17,30 @@ public class BoardController {
 		List<BoardDTO> dtoList = service.selectAll();
 
 		BoardView.list(dtoList);
+
+		boolean isStop = false;
+
+		while (!isStop) {
+			BoardView.print("1.글쓰기 | 2.글보기 | 99.종료");
+			BoardView.input("번호입력>>");
+			int job = Integer.parseInt(sc.nextLine());
+
+			switch (job) {
+			case 1 -> {
+			}
+			case 2 -> { //글보기
+				BoardView.input("글번호입력(뒤로가기:0)>> ");
+				int board_id = Integer.parseInt(sc.nextLine());
+				BoardView.print(service.selectOne(board_id));
+			}
+			case 99 -> {
+				isStop = true;
+			}
+			default -> {
+				BoardView.print("다시입력하세요.");
+			}
+			}
+		}
 	}
 
 }

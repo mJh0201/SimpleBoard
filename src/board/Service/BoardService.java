@@ -23,5 +23,11 @@ public class BoardService {
 	public BoardDTO selectOne(int board_id) {
 		return boardDAO.selectOne(board_id);
 	}
+  
+  // 게시글 수정
+  	public String update(int id, String name, String pw) {
+		return boardDAO.update(id, name, pw);
+		
+	}
 
 }

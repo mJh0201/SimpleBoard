@@ -17,6 +17,34 @@ import board.DTO.BoardDTO;
 import board.Util.DBUtil;
 
 public class BoardDAO {
+	
+	// 게시글 삭제
+	public String boardDelete(int boardId) {
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		String message = null;
+		
+		String sql = """
+				DELETE FROM BOARD WHERE BOARD_ID = ?
+				""";
+		try {
+			conn= DBUtil.dbConnect();
+			st = conn.prepareStatement(sql);
+			st.setInt(1, boardId);
+			int result = st.executeUpdate();
+			message = result + "건 삭제했습니다.";
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, st, rs);
+		}
+		return message;
+	}
+	
+
+	// 게시글 수정
 	public String update(int id, String title, String content) {
 		StringBuffer input = new StringBuffer("update board set");
 		List<String> list = new ArrayList<>();
@@ -55,8 +83,9 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		return "수정 실패했습니다.";
-  }
-
+	}
+	
+	// rp
 	public String boardCreate(BoardDTO boardDTO) {
 		String message = null;
 		Connection conn = null;

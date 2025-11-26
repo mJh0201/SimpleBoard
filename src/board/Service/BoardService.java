@@ -23,11 +23,15 @@ public class BoardService {
 	public BoardDTO selectOne(int board_id) {
 		return boardDAO.selectOne(board_id);
 	}
-  
-  // 게시글 수정
-  	public String update(int id, String name, String pw) {
+
+	// 게시글 수정
+	public String update(int id, String name, String pw) {
 		return boardDAO.update(id, name, pw);
-		
+	}
+	
+	// 게시글 삭제
+	public String boardDelete(int boardId) {
+		return boardDAO.boardDelete(boardId);
 	}
 
 }

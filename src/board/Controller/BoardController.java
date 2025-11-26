@@ -1,20 +1,22 @@
 package board.Controller;
 
-import java.util.List;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Scanner;
+
+import board.DAO.BoardDAO;
+import java.util.List;
 
 import board.DTO.BoardDTO;
 import board.Service.BoardService;
 import board.View.BoardView;
 
 public class BoardController {
-
 	static Scanner sc = new Scanner(System.in);
-	static BoardService service = new BoardService();
-
-	// main(게시글 전체 조회)
+	static BoardService boardService = new BoardService();
+	
 	public static void main(String[] args) {
-		List<BoardDTO> dtoList = service.selectAll();
+    List<BoardDTO> dtoList = service.selectAll();
 
 		BoardView.list(dtoList);
 
@@ -41,6 +43,31 @@ public class BoardController {
 			}
 			}
 		}
+		BoardDTO boardDTO = new BoardDTO();
+		
+		contentCreate();
+		BoardView.createBoardMenu(boardDTO);
 	}
-
+	
+	private static BoardDTO contentCreate() {	
+		BoardDTO boardDTO = new BoardDTO();
+		
+		BoardView.input("제목 : ");
+		String title = sc.nextLine();
+		BoardView.input("작성자 : ");
+		String user_name = sc.nextLine();
+		BoardView.input("내용 : ");
+		String content = sc.nextLine();
+		BoardView.input("비밀번호 : ");
+		String user_pw = sc.nextLine();
+		
+		boardDTO.setBoard_title(title);
+		boardDTO.setUser_name(user_name);
+		boardDTO.setBoard_content(content);
+		boardDTO.setUser_pw(user_pw);
+		
+		String message = boardService.boardCreate(boardDTO);
+		System.out.println("[확인용] " + message);
+		return boardDTO;
+	}
 }

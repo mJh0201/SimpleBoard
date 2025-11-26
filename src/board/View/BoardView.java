@@ -1,12 +1,12 @@
 package board.View;
 
-import java.util.List;
-
 import board.DTO.BoardDTO;
+	
+import java.util.List;
 
 
 public class BoardView {
-	
+  	
 	public static void print(String msg) {
 		System.out.println(msg);
 	}

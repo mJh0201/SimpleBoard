@@ -39,10 +39,10 @@ public class BoardController {
 					switch (select) {
 						case 1 -> {
 							// 글 수정
-							System.out.println("제목 수정>> ");
+							System.out.print("제목 수정>> ");
 							String title = sc.nextLine();
-							System.out.println("내용 수정>> ");
-							String content = sc.nextLine();
+							System.out.println("내용 수정 (마지막 줄에 종료를 입력하면 글이 저장됩니다.) >> ");
+							String content = inputContents();
 	
 							System.out.println(boardService.update(board_id, title, content));
 						} 
@@ -74,8 +74,9 @@ public class BoardController {
 		String title = sc.nextLine();
 		BoardView.input("작성자 : ");
 		String user_name = sc.nextLine();
-		BoardView.input("내용 : ");
-		String content = sc.nextLine();
+		BoardView.input("내용 (마지막 줄에 종료를 입력하면 글이 저장됩니다.) : ");
+		String content = inputContents();
+		
 		BoardView.input("비밀번호 : ");
 		String user_pw = sc.nextLine();
 
@@ -88,4 +89,21 @@ public class BoardController {
 		System.out.println("[확인용] " + message);
 		return boardDTO;
 	}
+
+	private static String inputContents() {
+		StringBuffer sb = new StringBuffer();
+		String input = "";
+		
+		while (!input.equals("종료")) {
+			input = sc.nextLine();
+			sb.append(input);
+			sb.append("\n");
+		}
+		
+		sb.delete(sb.length()-3, sb.length());
+
+		return sb.toString();
+	}
+	
+	
 }

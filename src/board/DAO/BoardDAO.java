@@ -17,19 +17,19 @@ import board.DTO.BoardDTO;
 import board.Util.DBUtil;
 
 public class BoardDAO {
-	
+
 	// 게시글 삭제
 	public String boardDelete(int boardId) {
 		Connection conn = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		String message = null;
-		
+
 		String sql = """
 				DELETE FROM BOARD WHERE BOARD_ID = ?
 				""";
 		try {
-			conn= DBUtil.dbConnect();
+			conn = DBUtil.dbConnect();
 			st = conn.prepareStatement(sql);
 			st.setInt(1, boardId);
 			int result = st.executeUpdate();
@@ -42,7 +42,6 @@ public class BoardDAO {
 		}
 		return message;
 	}
-	
 
 	// 게시글 수정
 	public String update(int id, String title, String content) {
@@ -84,8 +83,8 @@ public class BoardDAO {
 		}
 		return "수정 실패했습니다.";
 	}
-	
-	// rp
+
+	// 게시글 생성
 	public String boardCreate(BoardDTO boardDTO) {
 		String message = null;
 		Connection conn = null;
@@ -134,7 +133,7 @@ public class BoardDAO {
 		Statement st = null;
 		ResultSet rs = null;
 
-		String sql = "select * from board";
+		String sql = "select * from board order by board_id";
 
 		try {
 			conn = DBUtil.dbConnect();

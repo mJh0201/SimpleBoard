@@ -20,7 +20,7 @@ public class BoardController {
 		BoardView.list(dtoList);
 
 		while (!isStop) {
-			BoardView.print("1.글쓰기 | 2.글보기 | 99.종료");
+			BoardView.print("1.글쓰기 | 2.글보기 | 99.종료 | Q. 이전 | P. 이후");
 			BoardView.input("번호입력>>");
 			String job = sc.nextLine();
 
@@ -37,7 +37,7 @@ public class BoardController {
 
 				exit: while (true) {
 					BoardView.print(boardService.selectOne(board_id)); // 상세 글 조회
-					System.out.println("1. 글 수정하기  |  2. 글 삭제하기  | 3. 뒤로가기 | Q. 뒤로가기 | P. 뒤로가기");
+					System.out.println("1. 글 수정하기  |  2. 글 삭제하기  | 3. 뒤로가기");
 					int select = Integer.parseInt(sc.nextLine());
 
 					switch (select) {

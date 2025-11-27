@@ -16,48 +16,61 @@ public class BoardController {
 
 		boolean isStop = false;
 
+		dtoList = boardService.selectAll();
+		BoardView.list(dtoList);
+
 		while (!isStop) {
-			dtoList = boardService.selectAll();
-			BoardView.list(dtoList);
 			BoardView.print("1.글쓰기 | 2.글보기 | 99.종료");
 			BoardView.input("번호입력>>");
-			int job = Integer.parseInt(sc.nextLine());
+			String job = sc.nextLine();
 
 			switch (job) {
-			case 1 -> {
-				contentCreate();
+			case "1" -> {
+				BoardDTO boardDTO = contentCreate();
+				if (boardDTO != null) {
+					BoardView.list(boardService.selectAll());
+				}
 			}
-			case 2 -> { // 글보기
+			case "2" -> { // 글보기
 				BoardView.input("글번호입력(뒤로가기:0)>> ");
 				int board_id = Integer.parseInt(sc.nextLine());
 
-				exit:while (true) {
+				exit: while (true) {
 					BoardView.print(boardService.selectOne(board_id)); // 상세 글 조회
-					System.out.println("1. 글 수정하기  |  2. 글 삭제하기  | 3. 뒤로가기");
+					System.out.println("1. 글 수정하기  |  2. 글 삭제하기  | 3. 뒤로가기 | Q. 뒤로가기 | P. 뒤로가기");
 					int select = Integer.parseInt(sc.nextLine());
-					
+
 					switch (select) {
-						case 1 -> {
-							// 글 수정
-							System.out.print("제목 수정>> ");
-							String title = sc.nextLine();
-							System.out.println("내용 수정 (마지막 줄에 종료를 입력하면 글이 저장됩니다.) >> ");
-							String content = inputContents();
-	
-							System.out.println(boardService.update(board_id, title, content));
-						} 
-						case 2 -> {
-							// TODO: 글 삭제 기능 필요
-							BoardView.print(boardService.boardDelete(board_id));
-							break exit;
-						} 
-						case 3 -> {break exit;}
-						default -> {System.out.println("다시 입력하세요.");}
+					case 1 -> {
+						// 글 수정
+						System.out.print("제목 수정>> ");
+						String title = sc.nextLine();
+						System.out.println("내용 수정 (마지막 줄에 종료를 입력하면 글이 저장됩니다.) >> ");
+						String content = inputContents();
+
+						System.out.println(boardService.update(board_id, title, content));
+					}
+					case 2 -> {
+						// TODO: 글 삭제 기능 필요
+						BoardView.print(boardService.boardDelete(board_id));
+						break exit;
+					}
+					case 3 -> {
+						break exit;
+					}
+					default -> {
+						System.out.println("다시 입력하세요.");
+					}
 					}
 				}
-				
+
 			}
-			case 99 -> {
+			// 페이지 넘기기
+			case "q", "Q", "p", "P" -> {
+				BoardView.list(boardService.selectAll(job));
+			}
+
+			case "99" -> {
 				isStop = true;
 			}
 			default -> {
@@ -76,7 +89,7 @@ public class BoardController {
 		String user_name = sc.nextLine();
 		BoardView.input("내용 (마지막 줄에 종료를 입력하면 글이 저장됩니다.) : ");
 		String content = inputContents();
-		
+
 		BoardView.input("비밀번호 : ");
 		String user_pw = sc.nextLine();
 
@@ -93,17 +106,16 @@ public class BoardController {
 	private static String inputContents() {
 		StringBuffer sb = new StringBuffer();
 		String input = "";
-		
+
 		while (!input.equals("종료")) {
 			input = sc.nextLine();
 			sb.append(input);
 			sb.append("\n");
 		}
-		
-		sb.delete(sb.length()-3, sb.length());
+
+		sb.delete(sb.length() - 3, sb.length());
 
 		return sb.toString();
 	}
-	
-	
+
 }

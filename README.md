@@ -17,3 +17,7 @@ Board(고유번호(PK), 작성자(U), 비밀번호(U), 제목, 내용, 작성일
 ### 시스템 흐름도
 <img width="566" height="379" alt="Image" src="https://github.com/user-attachments/assets/b1f758e4-83e0-4613-b2b4-0a2739edee4a" />
 https://drive.google.com/file/d/1PFbN632ndAF-ohnLJYkYWzFeAzOUsqm-/view?usp=sharing
+
+### ERD 다이어그램
+<img width="617" height="147" alt="SIMPLE BOARD" src="https://github.com/user-attachments/assets/fe19a10a-4998-42f4-acd7-a58dc57c70b4" />
+

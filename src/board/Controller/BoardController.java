@@ -1,6 +1,7 @@
 package board.Controller;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.List;
 import board.DTO.BoardDTO;
 import board.Service.BoardService;
@@ -11,13 +12,13 @@ public class BoardController {
 	static BoardService boardService = new BoardService();
 
 	public static void main(String[] args) {
-		List<BoardDTO> dtoList = boardService.selectAll();
-
-		BoardView.list(dtoList);
+		List<BoardDTO> dtoList = new ArrayList<>();
 
 		boolean isStop = false;
 
 		while (!isStop) {
+			dtoList = boardService.selectAll();
+			BoardView.list(dtoList);
 			BoardView.print("1.글쓰기 | 2.글보기 | 99.종료");
 			BoardView.input("번호입력>>");
 			int job = Integer.parseInt(sc.nextLine());
@@ -47,6 +48,8 @@ public class BoardController {
 						} 
 						case 2 -> {
 							// TODO: 글 삭제 기능 필요
+							BoardView.print(boardService.boardDelete(board_id));
+							break exit;
 						} 
 						case 3 -> {break exit;}
 						default -> {System.out.println("다시 입력하세요.");}

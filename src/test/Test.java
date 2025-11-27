@@ -4,9 +4,6 @@ import java.util.Scanner;
 
 public class Test {
 
-//	public static void main2(String[] args) {
-//		System.out.println("hihi~~");
-//	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		StringBuffer sb = new StringBuffer();
